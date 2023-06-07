@@ -2,14 +2,21 @@ const byte LED = 9;
 const byte LDR = A5;
 unsigned int valorLDR;
 
-void setup(){
+void setup() {
   pinMode(LED, OUTPUT);
   pinMode(LDR, INPUT);
-  Serial.begin(1);
+  Serial.begin(9600);
 }
 
-void loop(){
+void loop() {
   valorLDR = analogRead(LDR);
-  analogWrite(LED, byte(200 - (valorLDR/4)));
+  
+  if (valorLDR > 740) {
+    digitalWrite(LED, LOW); // Desliga o LED
+  } else {
+    analogWrite(LED, byte(200 - (valorLDR/4)));
+  }
+  
   Serial.println(valorLDR);
+  delay(600);
 }
